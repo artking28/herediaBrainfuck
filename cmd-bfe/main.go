@@ -1,9 +1,8 @@
 package main
 
 import (
-	"os"
 	"io"
-	"p3-brainfuck"
+	"os"
 )
 
 func main() {
@@ -15,9 +14,9 @@ func main() {
 		println("empty program")
 		os.Exit(0)
 	}
-	
+
 	input := string(content)
-	tm := root.NewBfTuring()
+	tm := NewBfTuring()
 	if err := tm.Execute(input); err != nil {
 		panic(err.Error())
 	}

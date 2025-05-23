@@ -1,12 +1,11 @@
-package root
+package main
 
 import (
 	"errors"
 	"fmt"
-	"math"
 )
 
-const DEFAULT_SIZE = 30_000
+const DefaultSize = 30_000
 
 type BfTuring struct {
 	tape   []byte
@@ -14,19 +13,7 @@ type BfTuring struct {
 }
 
 func NewBfTuring() BfTuring {
-	return BfTuring{make([]byte, DEFAULT_SIZE), 0}
-}
-
-func NewBfTuringAll(tape []byte, cursor uint) BfTuring {
-	size := DEFAULT_SIZE - len(tape)
-	if len(tape) > DEFAULT_SIZE {
-		i := int(math.Ceil(float64(len(tape)) / DEFAULT_SIZE))
-		size = i*DEFAULT_SIZE - len(tape)
-	}
-	return BfTuring{
-		append(tape, make([]byte, size)...), 
-		cursor,
-	}
+	return BfTuring{make([]byte, DefaultSize), 0}
 }
 
 func (this *BfTuring) Execute(input string) error {

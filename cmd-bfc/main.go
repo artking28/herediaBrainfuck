@@ -13,6 +13,10 @@ type Token struct {
 	value      string
 }
 
+func printfuncString() string {
+	return ">++++++++++<<[->+>-[>+>>]>[+[-<+>]>+>>]<<<<<<]>>[-]>>>++++++++++<[->-[>+>>]>[+[-<+>]>+>>]<<<<<]>[-]>>[>++++++[-<++++++++>]<.<<+>+>[-]]<[<[->-<]++++++[->++++++++<]>.[-]]<<++++++[-<++++++++>]<.[-]<<[-<+>]"
+}
+
 // Função para tokenizar a expressão
 func tokenize(expr string) ([]Token, error) {
 	expr = strings.ReplaceAll(expr, " ", "")
@@ -68,11 +72,11 @@ func toPostfix(tokens []Token) ([]Token, error) {
 func generateBrainfuckPrintString(s string) string {
 	var bf strings.Builder
 	for _, c := range s {
-		bf.WriteString("[-]")          
-		for i := 0; i < int(c); i++ {  
+		bf.WriteString("[-]")
+		for i := 0; i < int(c); i++ {
 			bf.WriteString("+")
 		}
-		bf.WriteString(".>") // printa e vai pra próxima célula
+		bf.WriteString(".>")
 	}
 	return bf.String()
 }
@@ -80,7 +84,7 @@ func generateBrainfuckPrintString(s string) string {
 // Função para gerar código Brainfuck a partir de tokens em pós-fixa
 func generateBrainfuck(postfix []Token) (string, error) {
 	var bfCode strings.Builder
-	cellIndex := 0 
+	cellIndex := 0
 
 	for _, token := range postfix {
 		if !token.isOperator {
@@ -100,7 +104,7 @@ func generateBrainfuck(postfix []Token) (string, error) {
 			if cellIndex < 2 {
 				return "", fmt.Errorf("expressão inválida: operandos insuficientes")
 			}
-			
+
 			bfCode.WriteString(strings.Repeat("<", 2))
 			switch token.value {
 			case "+":
@@ -122,9 +126,7 @@ func generateBrainfuck(postfix []Token) (string, error) {
 		}
 	}
 
-	bfCode.WriteString(strings.Repeat("<", cellIndex))
-	bfCode.WriteString(strings.Repeat("+", 48))
-	bfCode.WriteString(".") // printa resultado
+	bfCode.WriteString(printfuncString())
 	return bfCode.String(), nil
 }
 
@@ -137,7 +139,7 @@ func main() {
 		println("error, siga o padrao '<nome> = <expressao>'")
 		os.Exit(1)
 	}
-	
+
 	name, value := strings.TrimSpace(split[0]), split[1]
 
 	// Tokeniza
@@ -165,7 +167,5 @@ func main() {
 	}
 
 	// Junta os dois códigos
-	finalBfCode := namePrint + bfCode
-
-	fmt.Printf(finalBfCode)
+	fmt.Printf(namePrint + bfCode)
 }
