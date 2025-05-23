@@ -129,7 +129,18 @@ func generateBrainfuck(postfix []Token) (string, error) {
 }
 
 func main() {
-	expr := strings.Join(os.Args[1:], "")
+
+ content, err := io.ReadAll(os.Stdin)
+	if err != nil {
+		panic(err.Error())
+	}
+	if len(content) <= 0 {
+		println("empty program")
+		os.Exit(0)
+	}
+
+	input := string(content)
+	expr := strings.Join(input, "")
 	expr = strings.ReplaceAll(expr, "\"", "")
 
 	split := strings.Split(expr, "=")
