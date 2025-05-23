@@ -114,9 +114,7 @@ func generateBrainfuck(postfix []Token) (string, error) {
 				// Subtrai célula da direita da da esquerda: [->-<]
 				bfCode.WriteString("[->-<]>[-<+>]<")
 			case "*":
-				// Multiplica célula da esquerda pela da direita
-				// usa célula extra temporária
-				bfCode.WriteString(">>[-]<<[>[->+>+<<]>>[-<<+>>]<<<-]>>[-<<+>>]<<")
+				bfCode.WriteString("[>[->+>+<<]>>[-<<+>>]<<<-]>>>[-]<")
 			default:
 				return "", fmt.Errorf("operador inválido: %s", token.value)
 			}
