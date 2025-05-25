@@ -1,1 +1,5 @@
 # HerediaBrainfuck
+
+```
+$ make all
+```

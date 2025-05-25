@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"io"
 )
 
 // Token representa um número ou operador
@@ -31,6 +32,7 @@ func tokenize(expr string) ([]Token, error) {
 				numBuf.Reset()
 			}
 			tokens = append(tokens, Token{true, string(c)})
+		} else if c == '\t' || c == '\n' {
 		} else {
 			return nil, fmt.Errorf("caractere inválido: %c", c)
 		}
@@ -140,8 +142,7 @@ func main() {
 	}
 
 	input := string(content)
-	expr := strings.Join(input, "")
-	expr = strings.ReplaceAll(expr, "\"", "")
+	expr := strings.ReplaceAll(input, "\"", "")
 
 	split := strings.Split(expr, "=")
 	if len(split) != 2 {
